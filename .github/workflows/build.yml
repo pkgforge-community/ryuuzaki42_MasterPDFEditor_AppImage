@@ -42,7 +42,7 @@ jobs:
           pwd; ls -lah
 
           fileName=$(ls MasterPDFEditor*.AppImage)
-          chmod +x "$fileName"
+          #chmod +x "$fileName"
           ./"$fileName" --appimage-extract
           rm MasterPDFEditor*.AppImage
           pwd; ls -lah
