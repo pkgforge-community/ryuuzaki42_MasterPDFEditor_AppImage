@@ -27,6 +27,34 @@ jobs:
           docker compose -f docker-compose.yaml build --no-cache --progress=plain
           docker compose -f docker-compose.yaml run appimage make all
 
+      - name: Get appimagetool
+        run: |
+          set -x
+          #wget -q -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          version_go_appimage=$(wget -q -O - https://api.github.com/repos/probonopd/go-appimage/releases | grep "\"name.*appimagetool-.*-x86_64.AppImage\"" | head -n 1 | cut -d '-' -f2)
+          echo "version_go_appimage: $version_go_appimage"
+          wget -q "https://github.com/probonopd/go-appimage/releases/download/continuous/appimagetool-$version_go_appimage-x86_64.AppImage" -O appimagetool-x86_64.AppImage
+          chmod +x appimagetool-x86_64.AppImage
+
+      - name: Extract AppImage and rebuilt to remove need of libfuse.so.2
+        run: |
+          set -x
+          cd app/
+          pwd; ls -lah
+
+          fileName=$(ls MasterPDFEditor*.AppImage)
+          chmod +x "$fileName"
+          ./"$fileName" --appimage-extract
+          rm MasterPDFEditor*.AppImage
+          pwd; ls -lah
+
+          mv ../appimagetool-x86_64.AppImage .
+          version=$(echo "$fileName" | cut -d '-' -f2) # Cut version
+          tag=2 #1
+
+          ARCH=x86_64 VERSION="${version}-${tag}_JB" ./appimagetool-x86_64.AppImage squashfs-root/
+          pwd; ls -lah
+
       - uses: xresloader/upload-to-github-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
