@@ -60,7 +60,7 @@ jobs:
           ARCH=x86_64 VERSION="${version}-${tag}_JB" ./appimagetool-x86_64.AppImage squashfs-root/
           pwd; ls -lah
 
-          PDF_Name=$(ls MasterPDFEditor-*.pdf" | cut -d '.' -f1)
+          PDF_Name=$(ls MasterPDFEditor-*.pdf | cut -d '.' -f1)
           mv MasterPDFEditor-*.pdf $PDF_Name-${version}.pdf
 
           #fileName=$(ls MasterPDFEditor*.AppImage)
@@ -72,7 +72,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: "./app/MasterPDFEditor-*.AppImage; ./app/MasterPDFEditor-*.md5; ./app/MasterPDFEditor-*.pdf"
+          file: "./app/MasterPDFEditor-*.AppImage; ./app/MasterPDFEditor-*.md5; ./app/MasterPDFEditor-*.zsync; ./app/MasterPDFEditor-*.pdf"
           #overwrite: true
           verbose: true
           draft: false
