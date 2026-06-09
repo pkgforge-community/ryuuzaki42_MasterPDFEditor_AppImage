@@ -15,19 +15,19 @@ all: clean init
 
 	echo "MasterPDFEditor version: $(VERSION)"
 
-	#wget -q --output-document=$(PWD)/build/build.deb https://code-industry.net/public/master-pdf-editor-$(VERSION)-qt5_included.x86_64.deb
-	#wget -q --output-document=$(PWD)/build/build.deb https://code-industry.net/public/master-pdf-editor-$(VERSION)-qt5.9.x86_64.deb
-	wget -q --output-document=$(PWD)/build/build.deb https://code-industry.net/public/master-pdf-editor-$(VERSION)-qt5.x86_64.deb
+	#wget -q -O $(PWD)/build/build.deb https://code-industry.net/public/master-pdf-editor-$(VERSION)-qt5_included.x86_64.deb
+	#wget -q -O $(PWD)/build/build.deb https://code-industry.net/public/master-pdf-editor-$(VERSION)-qt5.9.x86_64.deb
+	wget -q -O $(PWD)/build/build.deb https://code-industry.net/public/master-pdf-editor-$(VERSION)-qt5.x86_64.deb
 
 	dpkg -x $(PWD)/build/build.deb $(PWD)/build
 
 	cp --force --recursive $(PWD)/build/opt/master-pdf-editor*/* $(PWD)/build/Boilerplate.AppDir/mpe
 
-	rm -f $(PWD)/build/Boilerplate.AppDir/mpe/*.desktop 	|| true
-	rm -f $(PWD)/build/Boilerplate.AppDir/mpe/*.png 	|| true
-	rm -f $(PWD)/build/Boilerplate.AppDir/mpe/*.svg 	|| true
-	rm -f $(PWD)/build/Boilerplate.AppDir/mpe/*.jpg 	|| true
-	rm -f $(PWD)/build/Boilerplate.AppDir/mpe/*.sh 		|| true
+	rm -f $(PWD)/build/Boilerplate.AppDir/mpe/*.desktop || true
+	rm -f $(PWD)/build/Boilerplate.AppDir/mpe/*.png || true
+	rm -f $(PWD)/build/Boilerplate.AppDir/mpe/*.svg || true
+	rm -f $(PWD)/build/Boilerplate.AppDir/mpe/*.jpg || true
+	rm -f $(PWD)/build/Boilerplate.AppDir/mpe/*.sh || true
 
 	mv $(PWD)/build/Boilerplate.AppDir/mpe/help/MasterPDFEditor-UserManual_EN.pdf $(PWD)/
 	pwd; ls -lah
@@ -41,13 +41,13 @@ all: clean init
 	echo 'exec $${APPDIR}/mpe/masterpdfeditor*    "$${@}"'     >> $(PWD)/build/Boilerplate.AppDir/AppRun
 
 	rm -f $(PWD)/build/Boilerplate.AppDir/*.desktop || true
-	rm -f $(PWD)/build/Boilerplate.AppDir/*.png 	|| true
-	rm -f $(PWD)/build/Boilerplate.AppDir/*.svg 	|| true
-	rm -f $(PWD)/build/Boilerplate.AppDir/*.jpg 	|| true
+	rm -f $(PWD)/build/Boilerplate.AppDir/*.png || true
+	rm -f $(PWD)/build/Boilerplate.AppDir/*.svg || true
+	rm -f $(PWD)/build/Boilerplate.AppDir/*.jpg || true
 
-	cp --force $(PWD)/AppDir/*.svg 		$(PWD)/build/Boilerplate.AppDir || true
-	cp --force $(PWD)/AppDir/*.desktop 	$(PWD)/build/Boilerplate.AppDir || true
-	cp --force $(PWD)/AppDir/*.png 		$(PWD)/build/Boilerplate.AppDir || true
+	cp --force $(PWD)/AppDir/*.svg $(PWD)/build/Boilerplate.AppDir || true
+	cp --force $(PWD)/AppDir/*.desktop $(PWD)/build/Boilerplate.AppDir || true
+	cp --force $(PWD)/AppDir/*.png $(PWD)/build/Boilerplate.AppDir || true
 
 	chmod +x $(PWD)/build/Boilerplate.AppDir/AppRun
 
@@ -68,7 +68,6 @@ init:
 	chmod +x $(PWD)/bin/Apprepo.AppImage
 
 	wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O $(PWD)/bin/appimagetool.AppImage
-
 	chmod +x $(PWD)/bin/appimagetool.AppImage
 
 clean:
