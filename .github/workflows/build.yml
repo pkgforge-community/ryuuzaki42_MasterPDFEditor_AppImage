@@ -63,7 +63,7 @@ jobs:
           PDF_Name=$(ls MasterPDFEditor-*.pdf | cut -d '.' -f1)
           mv MasterPDFEditor-*.pdf $PDF_Name-${version}.pdf
 
-          #fileName=$(ls MasterPDFEditor*.AppImage)
+          fileName=$(ls MasterPDFEditor*.AppImage)
           echo "fileName: $fileName"
           md5sum "$fileName" > "${fileName}.md5"
           pwd; ls -lah
