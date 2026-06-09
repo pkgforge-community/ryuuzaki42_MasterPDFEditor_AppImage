@@ -1,3 +1,4 @@
+
 name: Create new release
 
 on:
@@ -15,14 +16,15 @@ env:
 
 jobs:
   deploy:
-    name: Deploy
-    #runs-on: ubuntu-latest
+    name: Build
     runs-on: ubuntu-24.04
+    #runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@master
       - name: build
         run: |
+          set -x
           #https://github.com/orgs/community/discussions/116610
           docker compose -f docker-compose.yaml build --no-cache --progress=plain
           docker compose -f docker-compose.yaml run appimage make all
@@ -48,7 +50,7 @@ jobs:
           pwd; ls -lah
 
           cat squashfs-root/MasterPDFEditor.desktop
-          sed -i 's/=Master PDF Editor 5/=Name=MasterPDFEditor/g' squashfs-root/MasterPDFEditor.desktop
+          sed -i 's/=Master PDF Editor 5/=MasterPDFEditor/g' squashfs-root/MasterPDFEditor.desktop
           cat squashfs-root/MasterPDFEditor.desktop
 
           mv ../appimagetool-x86_64.AppImage .
