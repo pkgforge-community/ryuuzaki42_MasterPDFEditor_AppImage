@@ -48,12 +48,19 @@ jobs:
           pwd; ls -lah
 
           cat squashfs-root/MasterPDFEditor.desktop
+          sed -i 's/=Master PDF Editor 5/=Name=MasterPDFEditor/g' squashfs-root/MasterPDFEditor.desktop
+          cat squashfs-root/MasterPDFEditor.desktop
 
           mv ../appimagetool-x86_64.AppImage .
           version=$(echo "$fileName" | cut -d '-' -f2) # Cut version
           tag=2 #1
 
           ARCH=x86_64 VERSION="${version}-${tag}_JB" ./appimagetool-x86_64.AppImage squashfs-root/
+          pwd; ls -lah
+
+          fileName=$(ls MasterPDFEditor*.AppImage)
+          echo "fileName: $fileName"
+          md5sum "$fileName" > "${fileName}.md5"
           pwd; ls -lah
 
       - uses: xresloader/upload-to-github-release@v1
